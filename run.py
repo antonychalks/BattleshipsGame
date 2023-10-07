@@ -1,6 +1,10 @@
 import string
 import random
 
+game_board_blank = []
+game_board_user = []
+game_board_computer = []
+
 
 def get_board_size():
     """
@@ -55,16 +59,16 @@ def validate_letter(letter, game_board):
         return False
 
 
-
 def board(board_size, is_user):
     x, y = board_size
     game_board = [["~~" for _ in range(y)] for _ in range(x)]
-    print_board(game_board, is_user)
+    if is_user == "user" or is_user == "computer":
+        print_board(game_board, is_user)
     return game_board
 
 
 def print_board(board, is_user):
-    if is_user:
+    if is_user == "user":
         print("Your Board:")
     else:
         print("Computer Board:")
@@ -96,7 +100,7 @@ def place_ships(xy, game_board, qty, is_user):
     max_y = number_to_letter(xy[1])
 
     while ships_remain > 0:
-        if is_user == True:
+        if is_user == "user":
             print("Now you need to place your ships")
             print(f"You have {ships_remain} ships remaining.")
             y_letter = input(f"Please input the Y axis of the ship you would like to place (A to {max_y}): ")
@@ -110,7 +114,7 @@ def place_ships(xy, game_board, qty, is_user):
         if 1 <= x <= len(game_board) and y <= xy[1]:
             if game_board[x - 1][y - 1] == "~~":
                 game_board[x - 1][y - 1] = "SS"
-                if is_user:
+                if is_user == "user":
                     print_board(game_board, is_user)
                 ships_remain -= 1
             else:
@@ -121,15 +125,65 @@ def place_ships(xy, game_board, qty, is_user):
     print("All ships have been placed.")
 
 
+def play_game(game_board_blank, game_board_user, game_board_computer, num_ships, xy):
+    user_ships = num_ships
+    comp_ships = num_ships
+
+    print("Who goes first?")
+    first_turn = input("User, Computer, Random: ")
+
+    if first_turn.lower() == "user":
+        while user_ships > 0 and comp_ships > 0:
+            print("Time to take your turn!")
+            if take_turn(game_board_user, game_board_computer, game_board_blank, "user", xy):
+                comp_ships =- 1
+            print("Computers turn!")
+            if take_turn(game_board_computer, game_board_user, game_board_blank, "comp", xy):
+                user_ships =- 1
+
+
+def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, xy):
+    max_y = number_to_letter(xy[1])
+
+    if is_user == "user":
+        print_board(game_board_blank, "blank")
+        print_board(game_board_turn, "user")
+        print("Now you need to chose where to launch missile")
+        y_letter = input(f"Please input the Y axis of the position you would like to target (A to {max_y}): ")
+        x = int(input(f"Please input the X axis of the position you would like to target (1 to {xy[0]}): "))
+        y = letter_to_number(y_letter)
+    else:
+        print("Computer taking their turn")
+        x = random.randint(1, xy[0])
+        y = random.randint(1, xy[1])
+            
+    if 1 <= x <= len(game_board_spectator) and y <= xy[1]:
+        if game_board_spectator[x - 1][y - 1] == "xx" or game_board_spectator[x - 1][y - 1] == "><":
+            print("Co-ordinates already selected!")
+        else:
+            if game_board_spectator[x - 1][y - 1] == "SS":
+                game_board_spectator[x - 1][y - 1] = "><"
+                if is_user == "user":
+                    game_board_blank[x - 1][y - 1] = "><"
+                return True
+            elif game_board_spectator[x - 1][y - 1] == "~~":
+                game_board_spectator[x - 1][y - 1] = "xx"
+                print("MISS!")
+                if is_user == "user":
+                    game_board_blank[x - 1][y - 1] = "xx"
+    else:
+        print("Invalid coordinates. Please enter valid coordinates within the board size.")
+
+
 def main():
     xy = get_board_size()
-    game_board_user = board(xy, True)
-    game_board_computer = board(xy, False)
+    game_board_blank = board(xy, "blank")
+    game_board_user = board(xy, "user")
+    game_board_computer = board(xy, "computer")
     num_ships = ship_qty()
-    place_ships(xy, game_board_user, num_ships, True) 
-    place_ships(xy, game_board_computer, num_ships, False) 
-
+    place_ships(xy, game_board_user, num_ships, "user") 
+    place_ships(xy, game_board_computer, num_ships, "computer") 
+    play_game(game_board_blank, game_board_user, game_board_computer, num_ships, xy)
 
 
 main()
-

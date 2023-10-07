@@ -1,0 +1,5 @@
+Problem: The console prints the board twice after a turn is taken.
+Cause: The print_board function was called at the start and end of the take turn function.
+Solution: I removed the last print_board function. 
+
+Problem: The game doesn't give you another go if type coordinates off the board, or coordinates that are already selected
