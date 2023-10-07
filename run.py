@@ -1,4 +1,5 @@
 import string
+import random
 
 
 def get_board_size():
@@ -55,15 +56,18 @@ def validate_letter(letter, game_board):
 
 
 
-def board(board_size):
+def board(board_size, is_user):
     x, y = board_size
     game_board = [["~~" for _ in range(y)] for _ in range(x)]
-    print_board(game_board)
+    print_board(game_board, is_user)
     return game_board
 
 
-def print_board(board):
-    print("Your Board:")
+def print_board(board, is_user):
+    if is_user:
+        print("Your Board:")
+    else:
+        print("Computer Board:")
     column_headers = list(string.ascii_uppercase)[:len(board[0])]
     header_str = "  " + "  ".join(column_headers)
     print(header_str)
@@ -87,21 +91,27 @@ def ship_qty():
     return int(ship)
 
 
-def place_ships(xy, game_board, qty):
-    print("Now you need to place your ships")
+def place_ships(xy, game_board, qty, is_user):
     ships_remain = qty
     max_y = number_to_letter(xy[1])
 
     while ships_remain > 0:
-        print(f"You have {ships_remain} ships remaining.")
-        y_letter = input(f"Please input the Y axis of the ship you would like to place (A to {max_y}): ")
-        x = int(input(f"Please input the X axis of the ship you would like to place (1 to {xy[0]}): "))
-        
-        y = letter_to_number(y_letter)
+        if is_user == True:
+            print("Now you need to place your ships")
+            print(f"You have {ships_remain} ships remaining.")
+            y_letter = input(f"Please input the Y axis of the ship you would like to place (A to {max_y}): ")
+            x = int(input(f"Please input the X axis of the ship you would like to place (1 to {xy[0]}): "))
+            y = letter_to_number(y_letter)
+        else:
+            print("Randomising computer ships...")
+            x = random.randint(1, xy[0])
+            y = random.randint(1, xy[1])
+            
         if 1 <= x <= len(game_board) and y <= xy[1]:
             if game_board[x - 1][y - 1] == "~~":
                 game_board[x - 1][y - 1] = "SS"
-                print_board(game_board)
+                if is_user:
+                    print_board(game_board, is_user)
                 ships_remain -= 1
             else:
                 print("Sorry, a ship is already placed at those coordinates. Try again.")
@@ -113,9 +123,12 @@ def place_ships(xy, game_board, qty):
 
 def main():
     xy = get_board_size()
-    game_board = board(xy)
-    num_ships = ship_qty()  # Call the ship_qty function to get the number of ships
-    place_ships(xy, game_board, num_ships)  # Pass the number of ships to place_ships
+    game_board_user = board(xy, True)
+    game_board_computer = board(xy, False)
+    num_ships = ship_qty()
+    place_ships(xy, game_board_user, num_ships, True) 
+    place_ships(xy, game_board_computer, num_ships, False) 
+
 
 
 main()
