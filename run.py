@@ -1,17 +1,4 @@
-import gspread
-from google.oauth2.service_account import Credentials
-
-# Constants
-SCOPE = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive.file",
-    "https://www.googleapis.com/auth/drive"
-]
-
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('Battleships')
+import string
 
 def get_board_size():
     """
@@ -62,16 +49,26 @@ def board(board_size):
     x, y = board_size
     game_board = [["~~" for _ in range(y)] for _ in range(x)]
     print_board(game_board)
+    return game_board
 
 
 def print_board(board):
     print("Your Board:")
-    for row in board:
-        print(" ".join(row))
+    column_headers = list(string.ascii_uppercase)[:len(board[0])]
+    header_str = "  " + "  ".join(column_headers)
+    print(header_str)
+    for i, row in enumerate(board, 1):
+        print(f"{i} {' '.join(row)}")
+
+
+def place_ships():
+    print("Now you need to place your ships")
+    
 
 
 def main():
     xy = get_board_size()
-    board(xy)
+    game_board = board(xy)
+    place_ships()
 
 main()
