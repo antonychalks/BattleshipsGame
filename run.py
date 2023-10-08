@@ -1,9 +1,11 @@
 import string
 import random
+import time
 
 game_board_blank = []
 game_board_user = []
 game_board_computer = []
+
 
 
 def get_board_size():
@@ -30,6 +32,7 @@ def get_board_size():
 
 
 def validate_int(num):
+
     try:
         if num.isnumeric():
             return True
@@ -110,7 +113,7 @@ def place_ships(xy, game_board, qty, is_user):
             print("Randomising computer ships...")
             x = random.randint(1, xy[0])
             y = random.randint(1, xy[1])
-            
+
         if 1 <= x <= len(game_board) and y <= xy[1]:
             if game_board[x - 1][y - 1] == "~~":
                 game_board[x - 1][y - 1] = "SS"
@@ -126,20 +129,76 @@ def place_ships(xy, game_board, qty, is_user):
 
 
 def play_game(game_board_blank, game_board_user, game_board_computer, num_ships, xy):
-    user_ships = num_ships
-    comp_ships = num_ships
+    
+        
+    def user_first(num_ships):
+        user_ships = num_ships
+        comp_ships = num_ships
+
+        while user_ships > 0 and comp_ships > 0:
+            print("Time to take your turn!")
+            time.sleep(2)
+            if take_turn(game_board_user, game_board_computer, game_board_blank, "user", xy) == True:
+                comp_ships -= 1
+            if comp_ships == 0:
+                break
+            print(f"Your ships remaining: {user_ships}")
+            print(f"Computer ships remaining: {comp_ships}")
+
+            print("Computers turn!")
+            time.sleep(2)
+            if take_turn(game_board_computer, game_board_user, game_board_blank, "comp", xy) == True:
+                user_ships -= 1
+            if user_ships == 0:
+                break
+            print(f"Your ships remaining: {user_ships}")
+            print(f"Computer ships remaining: {comp_ships}")
+
+
+    def comp_first(num_ships):
+        user_ships = num_ships
+        comp_ships = num_ships
+
+        while user_ships > 0 and comp_ships > 0:
+            print("Computers turn!")
+            time.sleep(2)
+            if take_turn(game_board_computer, game_board_user, game_board_blank, "comp", xy) == True:
+                user_ships -= 1
+            if user_ships == 0:
+                break
+            print(f"Your ships remaining: {user_ships}")
+            print(f"Computer ships remaining: {comp_ships}")
+
+            print("Time to take your turn!")
+            time.sleep(2)
+            if take_turn(game_board_user, game_board_computer, game_board_blank, "user", xy) == True:
+                comp_ships -= 1
+            if comp_ships == 0:
+                break
+            print(f"Your ships remaining: {user_ships}")
+            print(f"Computer ships remaining: {comp_ships}")
 
     print("Who goes first?")
     first_turn = input("User, Computer, Random: ")
 
     if first_turn.lower() == "user":
-        while user_ships > 0 and comp_ships > 0:
-            print("Time to take your turn!")
-            if take_turn(game_board_user, game_board_computer, game_board_blank, "user", xy):
-                comp_ships =- 1
-            print("Computers turn!")
-            if take_turn(game_board_computer, game_board_user, game_board_blank, "comp", xy):
-                user_ships =- 1
+        user_first(num_ships)
+    elif first_turn.lower() == "computer":
+        comp_first(num_ships)
+    elif first_turn.lower(num_ships) == "random":
+        random_start = random.randint(1, 2)
+        if random_start == 1:
+            user_first(num_ships)
+        else:
+            comp_first(num_ships)
+    else:
+        print("Invalid input. Please try again:")
+    
+    if comp_ships == 0:
+        print("YOU WIN! Computer loses!")
+    elif user_ships == 0:
+        print("YOU LOSE! Computer wins!")
+
 
 
 def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, xy):
@@ -152,10 +211,12 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
         y_letter = input(f"Please input the Y axis of the position you would like to target (A to {max_y}): ")
         x = int(input(f"Please input the X axis of the position you would like to target (1 to {xy[0]}): "))
         y = letter_to_number(y_letter)
+        print(number_to_letter(y)+str(x))
     else:
         print("Computer taking their turn")
         x = random.randint(1, xy[0])
         y = random.randint(1, xy[1])
+        print(number_to_letter(y)+str(x))
             
     if 1 <= x <= len(game_board_spectator) and y <= xy[1]:
         if game_board_spectator[x - 1][y - 1] == "xx" or game_board_spectator[x - 1][y - 1] == "><":
@@ -165,6 +226,7 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
                 game_board_spectator[x - 1][y - 1] = "><"
                 if is_user == "user":
                     game_board_blank[x - 1][y - 1] = "><"
+                print("HIT!")
                 return True
             elif game_board_spectator[x - 1][y - 1] == "~~":
                 game_board_spectator[x - 1][y - 1] = "xx"
@@ -173,9 +235,12 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
                     game_board_blank[x - 1][y - 1] = "xx"
     else:
         print("Invalid coordinates. Please enter valid coordinates within the board size.")
+    print("Changing player...")
+    time.sleep(2)
 
 
 def main():
+    testing = is_testing()
     xy = get_board_size()
     game_board_blank = board(xy, "blank")
     game_board_user = board(xy, "user")
