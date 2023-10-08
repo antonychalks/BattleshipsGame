@@ -1,28 +1,40 @@
 Problem: The console prints the board twice after a turn is taken.
 Cause: The print_board function was called at the start and end of the take turn function.
 Solution: I removed the last print_board function. 
+Fixed: Y
 
 Problem: The game doesn't give you another go if type coordinates off the board, or coordinates that are already selected
 Cause:
 Solution:
+Fixed: N
 
 Problem: There is no validation for first_turn input
 Cause: No validation function
 Solution: Code a new function for the first_turn input ensuring the input matches the  available strings. Ensure the validation loops back to the first turn input if invalid.
+Fixed: N
 
 Problem: There is no random selection for num_ships or for board size.
 Cause: Not coded
 Soltuion: Code it within the ship_qty() function
+Fixed: N
 
 Problem: The game moves too quick and can become confusing for the user as all the code prints at the same time.
 Cause: Python will execute each line as soon as the last one has finished.
 Solution: Add some wait times and messages with time.sleep(5) in so the game waits for 5 seconds at strategic points.
+Fixed: Y
 
 Problem: The wait time after changing players is too long.
 Cause: The time.sleep() was passed the argument of 5.
 Solution: Lowered to 2
+Fixed: Y
 
 Problem: Printing the computers turn returns the 'Y' coordinate as a number.
 Cause: The print statement prints the random integer instead of the letter value.
 Solution: Applied the number_to_letter() function directly in the print statement to display coordinates given.
+Fixed: Y
+
+Problem: No validation for ship_qty so that there is no more ships than can fit on the board.
+Cause: Validation not coded:
+Solution: Code a validation for ship_qty so that ship_qty cannot exceed squares on the board. Also prints a warning if ship_qty is more that 75% of the board squares.
+Fixed: N
 
