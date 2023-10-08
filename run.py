@@ -7,20 +7,32 @@ game_board_user = []
 game_board_computer = []
 
 
+def is_testing():
+    print("Type 'play' to start:")
+    test = input("")
+    if test.lower() == "play":
+        return False
+    elif test.lower() == 'test':
+        print("Entering test mode...")
+        return True
+    else:
+        print(f"Invalid Input. '{test}' Please try again.")
+        is_testing()
 
-def get_board_size():
+
+def get_board_size(testing):
     """
     Get the size of the board through user input.
     """
     print("Welcome to Python Battleships!")
     while True:
         x = input("How tall would you like the board to be? ")
-        if validate_int(x) and validate_5(x):
+        if validate_int(x, testing) and validate_5(x, testing):
             break
 
     while True:
         y = input("How wide would you like the board to be? ")
-        if validate_int(y) and validate_5(y):
+        if validate_int(y, testing) and validate_5(y, testing):
             break
 
     correct = input(f"You have chosen a {x} x {y} board size! Is this correct? (Y/N): ").lower()
@@ -28,38 +40,49 @@ def get_board_size():
         return int(x), int(y)
     else:
         print("Please re-enter the board size.")
-        return get_board_size()
+        return get_board_size(testing)
 
 
-def validate_int(num):
-
-    try:
-        if num.isnumeric():
-            return True
-        else:
-            raise ValueError(f"A whole number is required, you typed: {num}")
-    except ValueError as e:
-        print(f"Invalid data: {e}. Please try again.")
-        return False
-
-
-def validate_5(num):
-    try:
-        if int(num) >= 6:
-            return True
-        else:
-            raise ValueError(f"A number larger than 5 is required. You typed {num}")
-    except ValueError as e:
-        print(f"Invalid data: {e}. Please try again.")
-        return False
-
-
-def validate_letter(letter, game_board):
-    if letter.upper() in string.ascii_uppercase[:5]:
+def validate_int(num, testing):
+    if is_testing:
+        print("Skipping Validation: validate_int")
         return True
     else:
-        print("Invalid letter input. Please enter a letter from A to E.")
-        return False
+        try:
+            if num.isnumeric():
+                return True
+            else:
+                raise ValueError(f"A whole number is required, you typed: {num}")
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again.")
+            return False
+
+
+def validate_5(num, testing):
+    if is_testing:
+        print("Skipping Validation: validate_5")
+        return True
+    else:
+        try:
+            if int(num) >= 6:
+                return True
+            else:
+                raise ValueError(f"A number larger than 5 is required. You typed {num}")
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again.")
+            return False
+
+
+def validate_letter(letter, game_board, testing):
+    if is_testing:
+        print("Skipping Validation: validate_letter")
+        return True
+    else:
+        if letter.upper() in string.ascii_uppercase[:5]:
+            return True
+        else:
+            print("Invalid letter input. Please enter a letter from A to E.")
+            return False
 
 
 def board(board_size, is_user):
@@ -154,6 +177,11 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
             print(f"Your ships remaining: {user_ships}")
             print(f"Computer ships remaining: {comp_ships}")
 
+        if comp_ships == 0:
+            print("YOU WIN! Computer loses!")
+        elif user_ships == 0:
+            print("YOU LOSE! Computer wins!")
+
 
     def comp_first(num_ships):
         user_ships = num_ships
@@ -177,6 +205,11 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
                 break
             print(f"Your ships remaining: {user_ships}")
             print(f"Computer ships remaining: {comp_ships}")
+        
+        if comp_ships == 0:
+            print("YOU WIN! Computer loses!")
+        elif user_ships == 0:
+            print("YOU LOSE! Computer wins!")
 
     print("Who goes first?")
     first_turn = input("User, Computer, Random: ")
@@ -193,11 +226,6 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
             comp_first(num_ships)
     else:
         print("Invalid input. Please try again:")
-    
-    if comp_ships == 0:
-        print("YOU WIN! Computer loses!")
-    elif user_ships == 0:
-        print("YOU LOSE! Computer wins!")
 
 
 
@@ -241,7 +269,7 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
 
 def main():
     testing = is_testing()
-    xy = get_board_size()
+    xy = get_board_size(testing)
     game_board_blank = board(xy, "blank")
     game_board_user = board(xy, "user")
     game_board_computer = board(xy, "computer")
