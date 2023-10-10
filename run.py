@@ -358,6 +358,7 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
 def main():
     global xy
     global testing
+    global num_ships
     testing = is_testing()
     xy = get_board_size()
     game_board_blank = board(xy, "blank")
