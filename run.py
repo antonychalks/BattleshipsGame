@@ -34,7 +34,10 @@ def get_board_size():
                 y = random.randint(6, 26)
                 break
             else:
-                xy = xy.split(" x ")
+                for i in xy:
+                    if i == " ":
+                        i == ""
+                xy = xy.split("x")
                 x = int(xy[0])
                 y = int(xy[1])
                 if validate_int(x) and validate_board(x):
