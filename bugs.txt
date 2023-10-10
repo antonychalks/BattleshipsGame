@@ -3,20 +3,15 @@ Cause: The print_board function was called at the start and end of the take turn
 Solution: I removed the last print_board function. 
 Fixed: Y
 
-Problem: The game doesn't give you another go if type coordinates off the board, or coordinates that are already selected
-Cause:
-Solution:
-Fixed: N
+Problem: The game doesn't give you another go if you type coordinates off the board, or coordinates that are already selected
+Cause: There was nothing telling the programme to go back to the start of the function rather than carrying on.
+Solution: After each error I called the function using the same arguments already provided so this works for the user and for the computer.
+Fixed: Y
 
-Problem: There is no validation for first_turn input
-Cause: No validation function
-Solution: Code a new function for the first_turn input ensuring the input matches the  available strings. Ensure the validation loops back to the first turn input if invalid.
-Fixed: N
-
-Problem: There is no random selection for num_ships or for board size.
-Cause: Not coded
-Soltuion: Code it within the ship_qty() function
-Fixed: N
+Problem: There is no validation for correct input when taking your turn.
+Cause: No validation function.
+Soltuion: Applied the validate_int() function to the input
+Fixed: Y
 
 Problem: The game moves too quick and can become confusing for the user as all the code prints at the same time.
 Cause: Python will execute each line as soon as the last one has finished.
@@ -33,8 +28,89 @@ Cause: The print statement prints the random integer instead of the letter value
 Solution: Applied the number_to_letter() function directly in the print statement to display coordinates given.
 Fixed: Y
 
-Problem: No validation for ship_qty so that there is no more ships than can fit on the board.
-Cause: Validation not coded:
-Solution: Code a validation for ship_qty so that ship_qty cannot exceed squares on the board. Also prints a warning if ship_qty is more that 75% of the board squares.
-Fixed: N
+Problem: When typing play at the start the programme still skips validation as if it is in test mode.
+Cause: The if statement in the validation functions asked if is_testing is True.
+Solution: Changed the if statements to check if testing is True.
+Fixed: Y
 
+Problem: Keep getting the error: TypeError: unsupported operand type(s) for -: 'str' and 'int' when executing the play_game() function.
+Cause: The x input was being passed as a string.
+Solution: Wrapped the input in int()
+Fixed: Y
+
+
+Problem: Doesn't tell the user the minimum size of the board.
+Cause: It isn't written in the input statement.
+Solution: Add "(Min 6)" to each statement.
+Fixed: Y
+
+Problem: validate_letter() isnt used
+Cause: It is restricted to an input of 5 board width
+Solution: Reconfigure so it is useful.
+Fixed: Y
+
+Problem: No validation for ship_qty so that there is no more ships than can fit on the board.
+Cause: Validation not coded.
+Solution: Code a validation for ship_qty so that ship_qty cannot exceed squares on the board. Also prints a warning if ship_qty is more that 75% of the board squares.
+Fixed: Y
+
+Problem: Typing a number into the input asking Y/N for the correct board size doesn't return a ValueError but instead reads it as no.
+Cause: The if statement asks if the input is "Y" and treats everything else as "N"
+Solution: Add an elif statement asking for "N" then returns an error if not.
+Fixed: Y
+
+Problem: testing variable is not global.
+Cause: Was imported into each function instead of just making the variable global then checking the global variable.
+Solution: Delete all the arguments from the functions and test to ensure they are all reading the global variable.(Cleans code.) 
+Fixed: Y
+
+Problem: There is no validation for ship_qty.
+Cause: No validation function.
+Soltuion: Add validate_int() to ship qty. 
+Fixed: Y
+
+Problem: There is no validation for first_turn input.
+Cause: No validation function.
+Solution: Insert a while loop so to ensure the correct strings are passed through.
+Fixed: Y
+
+Problem: There is no random selection for num_ships.
+Cause: Not coded
+Soltuion: Code it within the ship_qty() function
+Fixed: Y
+
+Problem: The board size has to be written into two different statements.
+Cause: It's been coded to take two variables.
+Soltuion: Use the split method to take it as one variable, then split the result.
+Fixed: Y
+
+Problem: There is no random selection for board size.
+Cause: Not coded
+Soltuion: I insert an if statement stating that if the input is equal to "random" to create two random ints within a certain range as the X and Y.
+Fixed: Y
+
+Problem: The user has to insert the coordinates of a grid square as two seperate inputs.
+Cause: The programme asks for two inputs as x and y.
+Soltuion: When searching Stackoverflow I found that you can be accessed the same as a list. So I will do this for the input variables. I then turned this to a function and now any time the programme needs coordinates inputted from the user it can call this function.
+                            ^(https://stackoverflow.com/questions/113655/is-there-a-function-in-python-to-split-a-word-into-a-list)
+Fixed: Y
+
+Problem: The random board selection option can generate numbers less than 6.
+Cause: I chose the range 1:40.
+Solution: Changed the range to 6:26.
+Fixed: Y
+
+Problem: The board doesnt display any leters on the Y axis when wider than 26.
+Cause: The alphabet only lasts 26 letters.
+Solution: Shorterned the maximum board to 26 as larger than this is too large anyway.
+Fixed: Y
+
+Problem: Typing RANDOM in capital letters returns an error.
+Cause: The programme is looking for "random" exactly
+Solution: Add .lower() to the if statement.
+Fixed: Y
+
+The grid is off set when the numbers on the X axis go into double digits.
+Cause: There is an extra character in the row after 10.
+Solution: Add an if statement to add an extra space if the row number is less than 10.
+Fixed: Y
