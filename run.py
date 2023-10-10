@@ -169,7 +169,7 @@ def print_board(board, is_user):
     else:
         print("Computer Board:")
     column_headers = list(string.ascii_uppercase)[:len(board[0])]
-    header_str = "  " + "  ".join(column_headers)
+    header_str = "   " + "  ".join(column_headers)
     print(header_str)
     for i, row in enumerate(board, 1):
         if i < 10:
