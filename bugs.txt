@@ -110,7 +110,25 @@ Cause: The programme is looking for "random" exactly
 Solution: Add .lower() to the if statement.
 Fixed: Y
 
-The grid is off set when the numbers on the X axis go into double digits.
+Problem: The grid is off set when the numbers on the X axis go into double digits.
 Cause: There is an extra character in the row after 10.
 Solution: Add an if statement to add an extra space if the row number is less than 10.
+Fixed: Y
+
+User found:
+Problem: If there is no spaces in the xy input in get_board_size, it will return an error and exit the game.
+Cause: The split is for " x ".
+Solution: Iterate through the variable, removing any spaces, the split on the character 'x'.
+Fixed: Y
+
+User found:
+Problem: a .lower() method was given an argument.
+Cause: .lower() doesn't take arguments.
+Solution: Removed the argument.
+Fixed: Y
+
+User found:
+Problem: Typing 1a as a coordinate returns an error and ends the game as it is the wrong way round.
+Cause: There is nothing telling the programme to try again.
+Solution: put a not .isalpha if statement which prints an error statement then recalls the function.
 Fixed: Y

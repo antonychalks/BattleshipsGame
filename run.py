@@ -28,7 +28,7 @@ def get_board_size():
     
     while True:
         xy = input(f"How tall and wide would you like the board to be? (Min 6, Max 26)\nPlease enter in the following format: 'X x Y'\nIf you would like a random board, type 'random'.\n")
-        if validate_board_size(xy):
+        if validate_board_input(xy):
             if xy.lower() == "random":
                 x = random.randint(6, 26)
                 y = random.randint(6, 26)
@@ -64,8 +64,10 @@ def get_board_size():
             print("Invalid input")
 
 
-def validate_board_size(value):
-
+def validate_board_input(value):
+    """
+    Validates that the input is more than 4 characters to ensure the input is valid.
+    """
     try:
         if len(value) > 4:
             return True
@@ -209,6 +211,9 @@ def select_coords():
     max_y = number_to_letter(xy[1])
     yx = input(f"Please input the X and Y co-ordinates of the square you would like to select. \nFor example: D12\nPlease do not exceed {max_y}{xy[0]}: ")
     y_letter = yx[0]
+    if not y_letter.isalpha():
+        print("Incorrect format. You have typed a number instead of a letter\nPlease ensure you enter a letter followed by a number.")
+        return select_coords()
     x = int(yx[1:3])
     y = letter_to_number(y_letter)
     return x, y
