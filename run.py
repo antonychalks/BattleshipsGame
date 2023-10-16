@@ -457,8 +457,10 @@ def play_game(game_board_blank, game_board_user, game_board_computer):
         first_turn = input("User, Computer, Random: ")
         if first_turn.lower() == "user":
             user_first(num_ships)
+            break
         elif first_turn.lower() == "computer":
             comp_first(num_ships)
+            break
         elif first_turn.lower() == "random":
             random_start = random.randint(1, 2)
             if random_start == 1:

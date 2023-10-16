@@ -105,12 +105,20 @@ All bugs that I found were noted into [bugs.txt](bugs.txt) as I went, along with
 
 ## Deployment
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub) 
+Deployment
 
-- The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  - In the GitHub repository, navigate to the Settings tab 
-  - From the source section drop-down menu, select the Master Branch
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
+To deploy this website through github heroku I completed the following steps:
+1. First, log into hiroku and click create new app.
+2. I then named the app and set the region to Europe, before clicking create app.
+3. Then, I opened the apps dashboard.
+4. I then clicked the settings tab at the top of the screen.
+5. At this point I would upload the creds.JSON file if it was required.
+6. I then add the two buildpacks, Heroku.Python and Heroku.NodeJS by clicking add buildpack, then selecting each pack respectively.
+7. After that, I clicked on the 'deploy' tab at the top of the screen.
+8. Under deployment method, I selected GITHUB and ensured the account was connected.
+9. I then searched for the correct repository, then clicked the connect button,
+10. Finally I enabled automatic deploys to deploy the app. This also ensures everytime I use 'git push', the heroku app is updated.
+
 
 The live link can be found here - https://battleships-antony-ee8c8004c260.herokuapp.com/
 
