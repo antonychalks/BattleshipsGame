@@ -445,11 +445,8 @@ def play_game(game_board_blank, game_board_user, game_board_computer):
         # depending on who won.
         if comp_ships == 0:
             print("YOU WIN! Computer loses!")
-            break
         elif user_ships == 0:
             print("YOU LOSE! Computer wins!")
-            break
-        print("GAME OVER")
 
     while True:
         # This code determins if the user would like
@@ -466,8 +463,10 @@ def play_game(game_board_blank, game_board_user, game_board_computer):
             random_start = random.randint(1, 2)
             if random_start == 1:
                 user_first(num_ships)
+                break
             else:
                 comp_first(num_ships)
+                break
         else:
             print("Invalid input. Please try again:")
 
