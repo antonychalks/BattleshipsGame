@@ -7,7 +7,120 @@ game_board_user = []
 game_board_computer = []
 
 
+def validate_board_input(value):
+    """
+    Validates that the input is more than 4 characters to ensure the input is valid.
+    """
+    try:
+        if len(value) > 4:
+            return True
+        else:
+            raise ValueError("You have not used the correct format, You need to type the first number followed by ' x ' followed by your second number.")
+    except ValueError as e:
+        print(f"Invalid data: {e}. Please try again.")
+        return False
+
+
+def validate_int(num):
+    """
+    Validates that the value passed is an integer and isn't larger than the X axis. 
+    """
+    if testing == True:
+        print("TEST: Skipping Validation: validate_int")
+        return True
+    else:
+        try:
+            num = int(num)
+            if isinstance(num, int):
+                return True
+            else:
+                raise ValueError(f"A whole number is required, you typed: {num}")
+            if num > xy[0]:
+                raise ValueError(f"Only one Character is allowed.")
+            else:
+                return True
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again.")
+            return False
+
+
+def validate_board(num):
+    """
+    Validates that the value passed is between the minimum (6) and the maximum (26) size allowed.
+    """
+    if testing == True:
+        print("TEST: Skipping Validation: validate_board")
+        return True
+    else:
+        try:
+            num = int(num)
+            if 5 < num < 27:
+                return True
+            else:
+                raise ValueError(f"A number larger than 5 and smaller than 27 is required. You typed {num}")
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again.")
+            return False
+
+
+def validate_letter(letter):
+    """
+    Validates that the value passed is a letter and that the numerical value of that letter doesn't exceed the board size.
+    """
+    if testing == True:
+        print("TEST: Skipping Validation: validate_letter")
+        return True
+    else:
+        try:
+            if letter_to_number(letter.upper()) > xy[1]:
+                raise ValueError(f"Invalid letter input.")
+                return False
+            else:
+                return True
+            if type(letter) is str:
+                return True
+            else:
+                raise ValueError("Your input was not a letter.")
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again with a letter from A to {number_to_letter(xy[1])}.")
+            return False
+
+
+def validate_ship_qty(ship):
+    """
+    Validates that the value passed doesn't exceed the total number of spaces on the board, and warns the user if the value is larger than 75% of the number of spaces on the board.
+    """
+    if testing:
+        print("TEST: Skipping Validation: validate_ship_qty")
+        return True
+    else:
+        try:
+            ship = int(ship)
+            area = xy[0] * xy[1]
+            if area <= ship:
+                raise ValueError(f"The number of ships entered ({ship}) is more than the available squares ({area}).")
+            
+            if area * 0.75 <= ship:
+                print(f"WARNING: The number of ships entered ({ship}) is more than 75% of the available squares ({area}).")
+                while True:
+                    proceed = input("Do you wish to proceed? Y/N: ")
+                    if proceed == "Y":
+                        return True
+                    elif proceed == "N":
+                        return False
+                    else:
+                        print("Incorrect Value.\nIf you wish to proceed please type 'Y'.\nIf you do not please enter 'N'\n")
+            else:
+                return True 
+        except ValueError as e:
+            print(f"Invalid data: {e}. Please try again with a number lower than {area}.\n")
+            return False
+
+
 def is_testing():
+    """
+    Gives a developer the option to enter test mode. Which bipasses some validation options.
+    """
     print("Type 'play' to start:")
     test = input("")
     if test.lower() == "play":
@@ -44,9 +157,9 @@ def get_board_size():
                     if validate_int(y) and validate_board(y):
                         break
                     else:
-                        print("y value invalid, please try again")
+                        print("'Y' value invalid, please try again")
                 else:
-                    print("x value invalid, please try again")
+                    print("'X' value invalid, please try again")
             print("Invalid input, please try again.")
         else:
             print("Invalid format. Input should be X x Y, with a space between each character and two whole numbers for the X and Y")
@@ -63,104 +176,11 @@ def get_board_size():
         else:
             print("Invalid input")
 
-
-def validate_board_input(value):
-    """
-    Validates that the input is more than 4 characters to ensure the input is valid.
-    """
-    try:
-        if len(value) > 4:
-            return True
-        else:
-            raise ValueError("You have not used the correct format, You need to type the first number followed by ' x ' followed by your second number.")
-    except ValueError as e:
-        print(f"Invalid data: {e}. Please try again.")
-        return False
-
-
-def validate_int(num):
-    if testing == True:
-        print("TEST: Skipping Validation: validate_int")
-        return True
-    else:
-        try:
-            num = int(num)
-            if isinstance(num, int):
-                return True
-            else:
-                raise ValueError(f"A whole number is required, you typed: {num}")
-            if num > xy[0]:
-                raise ValueError(f"Only one Character is allowed.")
-            else:
-                return True
-        except ValueError as e:
-            print(f"Invalid data: {e}. Please try again.")
-            return False
-
-
-def validate_board(num):
-    if testing == True:
-        print("TEST: Skipping Validation: validate_board")
-        return True
-    else:
-        try:
-            num = int(num)
-            if 5 < num < 27:
-                return True
-            else:
-                raise ValueError(f"A number larger than 5 and smaller than 27 is required. You typed {num}")
-        except ValueError as e:
-            print(f"Invalid data: {e}. Please try again.")
-            return False
-
-
-def validate_letter(letter, game_board):
-    if testing == True:
-        print("TEST: Skipping Validation: validate_letter")
-        return True
-    else:
-        try:
-            if letter_to_number(letter.upper()) > xy[1]:
-                raise ValueError(f"Invalid letter input.")
-                return False
-            else:
-                return True
-            if type(letter) is str:
-                return True
-            else:
-                raise ValueError("Your input was not a letter.")
-        except ValueError as e:
-            print(f"Invalid data: {e}. Please try again with a letter from A to {number_to_letter(xy[1])}.")
-            return False
-
-
-def validate_ship_qty(ship):
-    if testing:
-        print("TEST: Skipping Validation: validate_ship_qty")
-        return True
-    else:
-        try:
-            ship = int(ship)
-            area = xy[0] * xy[1]
-            if area <= ship:
-                raise ValueError(f"The number of ships entered ({ship}) is more than the available squares ({area}).")
-            
-            if area * 0.75 <= ship:
-                print(f"WARNING: The number of ships entered ({ship}) is more than 75% of the available squares ({area}).")
-                while True:
-                    proceed = input("Do you wish to proceed? Y/N: ")
-                    if proceed == "Y":
-                        return True
-                    elif proceed == "N":
-                        return False
-            else:
-                return True  # Move this line outside of the else block
-        except ValueError as e:
-            print(f"Invalid data: {e}. Please try again with a number lower than {area}.")
-            return False
-
                     
 def board(board_size, is_user):
+    """
+    Creates the board and then prints it to the user.
+    """
     x, y = board_size
     game_board = [["~~" for num in range(y)] for num in range(x)]
     if is_user == "user" or is_user == "computer":
@@ -169,6 +189,9 @@ def board(board_size, is_user):
 
 
 def print_board(board, is_user):
+    """
+    Gets the board that was saved in a list and prints it with a numbers column and letters row so the use has coordiantes to use.
+    """
     if is_user == "user":
         print("Your Board:")
     else:
@@ -184,10 +207,16 @@ def print_board(board, is_user):
 
 
 def letter_to_number(letter):
+    """
+    Changes the letter into its numerical value. I.E A=1, B=2, C=3
+    """
     return string.ascii_uppercase.index(letter.upper()) + 1
 
 
 def number_to_letter(number):
+    """
+    Changes a number into the corrosponding letter from the alphabet. I.E 1=A, 2=B, C=3
+    """
     if 1 <= number <= 26:
         return string.ascii_uppercase[number - 1]
     else:
@@ -195,6 +224,9 @@ def number_to_letter(number):
 
 
 def ship_qty():
+    """
+    Gets the user input, or uses random to determine the number of ships each player has.
+    """
     while True:
         print("How many Ships should each player have?\n")
         ship = input("You can also type random for a random amount: ")
@@ -208,6 +240,9 @@ def ship_qty():
 
 
 def select_coords():
+    """
+    Used to recieve an input from the user that will select coordinates on the board.
+    """
     max_y = number_to_letter(xy[1])
     yx = input(f"Please input the X and Y co-ordinates of the square you would like to select. \nFor example: D12\nPlease do not exceed {max_y}{xy[0]}: ")
     y_letter = yx[0]
@@ -220,6 +255,9 @@ def select_coords():
 
 
 def place_ships(xy, game_board, qty, is_user):
+    """
+    Uses inputs from the user and random integers to determin where the ships are placed on the gameboard and updates the respective gameboard.
+    """
     ships_remain = qty
 
     while ships_remain > 0:
@@ -249,7 +287,13 @@ def place_ships(xy, game_board, qty, is_user):
 
 
 def play_game(game_board_blank, game_board_user, game_board_computer, num_ships, xy):       
+    """
+    This function runs the main game and is used to determin if the user or computer goes first.
+    """
     def user_first(num_ships):
+        """
+        Function is called to run the game if the user goes first.
+        """
         user_ships = num_ships
         comp_ships = num_ships
 
@@ -279,6 +323,9 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
 
 
     def comp_first(num_ships):
+        """
+        Function is called to run the game if the computer goes first.
+        """
         user_ships = num_ships
         comp_ships = num_ships
 
@@ -293,7 +340,7 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
             print(f"Computer ships remaining: {comp_ships}")
 
             print("Time to take your turn!")
-            time.sleep(2)
+            time.sleep(0.5)
             if take_turn(game_board_user, game_board_computer, game_board_blank, "user", xy) == True:
                 comp_ships -= 1
             if comp_ships == 0:
@@ -325,6 +372,9 @@ def play_game(game_board_blank, game_board_user, game_board_computer, num_ships,
 
 
 def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, xy):
+    """
+    This function is used each time the user or computer takes a turn.
+    """
     max_y = number_to_letter(xy[1])
 
     if is_user == "user":
@@ -364,6 +414,9 @@ def take_turn(game_board_turn, game_board_spectator, game_board_blank, is_user, 
 
 
 def main():
+    """
+    This is the main function called to run everything in the correct order.
+    """
     global xy
     global testing
     global num_ships
