@@ -51,7 +51,7 @@ def validate_int(num):
                 return True
             else:
                 raise ValueError(f"A whole number is required,\
-                                you typed: {num}")
+ you typed: {num}")
             # Checks if the number is larger than the board.
             if num > xy[0]:
                 raise ValueError(f"Only one Character is allowed.")
@@ -64,7 +64,7 @@ def validate_int(num):
 
 def validate_board(num):
     """
-    Validates that the value passed is between the minimum (6)\
+    Validates that the value passed is between the minimum (6)
     and the maximum (26) size allowed.
     """
     # Skips validation if in testing mode.
@@ -80,7 +80,7 @@ def validate_board(num):
                 return True
             else:
                 raise ValueError(f"A number larger than 5 and smaller than\
-                                27 is required. You typed {num}")
+27 is required. You typed {num}")
         except ValueError as e:
             print(f"Invalid input: {e}. Please try again.\n\n")
             return False
@@ -109,7 +109,7 @@ def validate_letter(letter):
                 raise ValueError("Your input was not a letter.")
         except ValueError as e:
             print(f"Invalid input: {e}. Please try again with a letter from A\
-                    to {number_to_letter(xy[1])}.\n")
+ to {number_to_letter(xy[1])}.\n")
             return False
 
 
@@ -130,11 +130,11 @@ def validate_ship_qty(ship):
             area = xy[0] * xy[1]
             if area <= ship:
                 raise ValueError(f"The number of ships entered ({ship}) is\
-                                more than the available squares ({area}).")
+ more than the available squares ({area}).")
             # Checks if the value is more that 75% the area of the board.
             if area * 0.75 <= ship:
                 print(f"WARNING: The number of ships entered ({ship}) is more\
-                        than 75% of the available squares ({area}).")
+ than 75% of the available squares ({area}).")
                 while True:
                     proceed = input("Do you wish to proceed? Y/N: ")
                     if proceed == "Y":
@@ -143,7 +143,7 @@ def validate_ship_qty(ship):
                         return False
                     else:
                         print("Incorrect Value.\nIf you wish to proceed please\
-                            type 'Y'.\nIf you do not please enter 'N'\n")
+ type 'Y'.\nIf you do not please enter 'N'\n")
             else:
                 return True
         except ValueError as e:
@@ -181,8 +181,8 @@ def get_board_size():
         # Gets the size of the board through use input,
         # or allows the user to select a random size.
         xy = input(f"How tall and wide would you like the board to be?\
-            (Min 6, Max 26)\nPlease enter in the following format: 'X x Y'\n\
-            If you would like a random board, type 'random'.\n")
+ (Min 6, Max 26)\nPlease enter in the following format: 'X x Y'\n\
+ If you would like a random board, type 'random'.\n")
         if validate_board_input(xy):
             if xy.lower() == "random":
                 # Gets two random integers between 6 and 26.
@@ -209,12 +209,12 @@ def get_board_size():
             print("Invalid input, Please try again.\n")
         else:
             print("Invalid format. Input should be X x Y, with a space between\
-                each character and two whole numbers for the X and Y")
+ each character and two whole numbers for the X and Y")
 
     while True:
         # Checks the user is happy with the board size.
         correct = input(f"You have chosen a {x} x {y} board size! Is this\
-                        correct? (Y/N): ").lower()
+ correct? (Y/N): ").lower()
         if correct == 'y':
             return int(x), int(y)
         elif correct == 'n':
@@ -272,7 +272,7 @@ def letter_to_number(letter):
 def number_to_letter(number):
     """
     Changes a number into the corrosponding letter from the alphabet.
-    I.E 1=A, 2=B, C=3
+ I.E 1=A, 2=B, C=3
     """
     if 1 <= number <= 26:
         return string.ascii_uppercase[number - 1]
@@ -283,7 +283,7 @@ def number_to_letter(number):
 def ship_qty():
     """
     Gets the user input, or uses random to determine
-    the number of ships each player has.
+ the number of ships each player has.
     """
     while True:
         print("How many Ships should each player have?\n")
@@ -305,8 +305,7 @@ def select_coords():
     """
     max_y = number_to_letter(xy[1])
     yx = input(f"Please input the X and Y co-ordinates of the square you would\
-                like to select. \nFor example: D12\n\
-                Please do not exceed {max_y}{xy[0]}: ")
+ like to select. \nFor example: D12\n Please do not exceed {max_y}{xy[0]}: ")
     y_letter = yx[0]
     # Checks the input is the correct way round.
     if not y_letter.isalpha():
@@ -352,10 +351,10 @@ def place_ships(game_board, is_user):
                 ships_remain -= 1
             else:
                 print("Sorry, a ship is already placed at those coordinates.\
-                        Please try again.")
+ Please try again.")
         else:
             print("Invalid coordinates. Please enter valid coordinates\
-within the board size.")
+ within the board size.")
 
     print("All ships have been placed.")
 
@@ -525,7 +524,7 @@ def take_turn(game_board_turn, game_board_spectator,
                     game_board_blank[x - 1][y - 1] = "xx"
     else:
         print("Invalid coordinates. Please enter valid coordinates within\
-              the board size.")
+ the board size.")
         # Calling the function allows the user to take another turn.
         take_turn(game_board_turn, game_board_spectator,
                   game_board_blank, is_user)

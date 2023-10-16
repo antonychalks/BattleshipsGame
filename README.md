@@ -20,7 +20,8 @@ In this section, I am going to discribe step by step how the game works, and wha
   - This is used as a 'start button' to begin running the game when the user is ready.
   - At this point there is a hidden option to type 'test' which allows any developers to skip any validation when setting up the game. For example, when I wanted to test what happens when a ship is hit, or a player wins the game, rather than playing the game on a 6x6 grid and trying to hit the computers ship over and over again, I can now by pass the "validate_board_size" function and set a 1x1 grid, which saves time in the testing phase.
 
-![play/test]()
+![play](https://ibb.co/3sbH3M2)
+![test](https://ibb.co/wz9YRY7)
 
 - __Board Size__
 
@@ -30,7 +31,7 @@ In this section, I am going to discribe step by step how the game works, and wha
     - Is between 5 and 27 (not including 5 and 27).
   - The user is then asked if they are happy with this board size, and if not, they are allowed to go back and try again
 
-![Board Size.]()
+![Board Size.](https://ibb.co/BfQhXC1)
 
 - __Number of Ships__
 
@@ -39,7 +40,7 @@ In this section, I am going to discribe step by step how the game works, and wha
   - validate_int(ship) is used to validate that the value given is an integer.
   - validate_ship_qty(ship) is used to ensure the input is less than the total amount of spaces on the board. If the input is more than 75% of the total spaces on board, a warning is given to the user to ensure they are happy with this.
 
-![Number of Ships]()
+![Number of Ships](https://ibb.co/N1MBt47)
 
 - __Placing ships__
 
@@ -49,14 +50,15 @@ In this section, I am going to discribe step by step how the game works, and wha
   - The computers ships are then placed using random integers.
 
 
-![Placing Ships]()
+![Placing Ships](https://ibb.co/Wx9BbWd)
+![Placing Computer Ships](https://ibb.co/z5jSSZq)
 
 - __Who goes first?__ 
 
   - The user can now select if they would like to go first, if they would like the computer to go first, or if they would like to randomise the choice,
   - The input is validated to those three options, and will loop back if incorrect.
 
-![First turn]()
+![First turn](https://ibb.co/82QvnQ2)
 
 - __Launching a missile__
 
@@ -69,7 +71,8 @@ In this section, I am going to discribe step by step how the game works, and wha
   - The computer then takes their turn.
   - This continues until either player has lost all their ships, in which case the other player wins.
 
-![Missile Fired.]()
+![Missile Fired.](https://ibb.co/xMhxQgR)
+![Game Won.](https://ibb.co/zVgVVpF)
 
 ### Features Left to Implement
 
