@@ -25,9 +25,8 @@ def validate_board_input(value):
             else:
                 # Raises an error if the validation fails.
                 raise ValueError("You have not used the correct format,\
-                                  You need to type the first number\
-                                  followed by ' x ' followed by your\
-                                  second number.")
+ You need to type the first number followed by ' x ' followed by your\
+ second number.")
         except ValueError as e:
             # Prints the error to the user.
             print(f"Invalid input: {e}. Please try again.\n")
@@ -182,7 +181,7 @@ def get_board_size():
         # or allows the user to select a random size.
         xy = input(f"How tall and wide would you like the board to be?\
  (Min 6, Max 26)\nPlease enter in the following format: 'X x Y'\n\
- If you would like a random board, type 'random'.\n")
+If you would like a random board, type 'random'.\n")
         if validate_board_input(xy):
             if xy.lower() == "random":
                 # Gets two random integers between 6 and 26.
@@ -272,7 +271,7 @@ def letter_to_number(letter):
 def number_to_letter(number):
     """
     Changes a number into the corrosponding letter from the alphabet.
- I.E 1=A, 2=B, C=3
+    I.E 1=A, 2=B, C=3
     """
     if 1 <= number <= 26:
         return string.ascii_uppercase[number - 1]
@@ -283,7 +282,7 @@ def number_to_letter(number):
 def ship_qty():
     """
     Gets the user input, or uses random to determine
- the number of ships each player has.
+    the number of ships each player has.
     """
     while True:
         print("How many Ships should each player have?\n")
@@ -320,7 +319,7 @@ def select_coords():
 def place_ships(game_board, is_user):
     """
     Uses inputs from the user and random integers to determin where the ships\
-        are placed on the gameboard and updates the respective gameboard.
+    are placed on the gameboard and updates the respective gameboard.
     """
     ships_remain = num_ships
 
