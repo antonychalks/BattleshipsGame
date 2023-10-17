@@ -1,9 +1,7 @@
-#Welcome to Antony's Battleships
+# Welcome to Antony's Battleships
 
 This is a Python Command-line battleships game.
 The last update to this file was: **October 16, 2023**
-
-[TOC]
 
 ## Introduction
 
@@ -20,8 +18,8 @@ In this section, I am going to discribe step by step how the game works, and wha
   - This is used as a 'start button' to begin running the game when the user is ready.
   - At this point there is a hidden option to type 'test' which allows any developers to skip any validation when setting up the game. For example, when I wanted to test what happens when a ship is hit, or a player wins the game, rather than playing the game on a 6x6 grid and trying to hit the computers ship over and over again, I can now by pass the "validate_board_size" function and set a 1x1 grid, which saves time in the testing phase.
 
-![play](https://ibb.co/3sbH3M2)
-![test](https://ibb.co/wz9YRY7)
+![play](https://i.ibb.co/LPyfFJm/1-Play.jpg)
+![test](https://i.ibb.co/DRxLtLY/1-test.jpg)
 
 - __Board Size__
 
@@ -31,7 +29,7 @@ In this section, I am going to discribe step by step how the game works, and wha
     - Is between 5 and 27 (not including 5 and 27).
   - The user is then asked if they are happy with this board size, and if not, they are allowed to go back and try again
 
-![Board Size.](https://ibb.co/BfQhXC1)
+![Board Size.](https://i.ibb.co/CwYjkHr/2-board-size.png)
 
 - __Number of Ships__
 
@@ -40,7 +38,7 @@ In this section, I am going to discribe step by step how the game works, and wha
   - validate_int(ship) is used to validate that the value given is an integer.
   - validate_ship_qty(ship) is used to ensure the input is less than the total amount of spaces on the board. If the input is more than 75% of the total spaces on board, a warning is given to the user to ensure they are happy with this.
 
-![Number of Ships](https://ibb.co/N1MBt47)
+![Number of Ships](https://i.ibb.co/f8swqcQ/3-num-ships.png)
 
 - __Placing ships__
 
@@ -50,15 +48,15 @@ In this section, I am going to discribe step by step how the game works, and wha
   - The computers ships are then placed using random integers.
 
 
-![Placing Ships](https://ibb.co/Wx9BbWd)
-![Placing Computer Ships](https://ibb.co/z5jSSZq)
+![Placing Ships](https://i.ibb.co/zncPyhL/4-ship-placement.png)
+![Placing Computer Ships](https://i.ibb.co/dc1QQD8/4-ship-placement-comp.png)
 
 - __Who goes first?__ 
 
   - The user can now select if they would like to go first, if they would like the computer to go first, or if they would like to randomise the choice,
   - The input is validated to those three options, and will loop back if incorrect.
 
-![First turn](https://ibb.co/82QvnQ2)
+![First turn](https://i.ibb.co/7V0Mx0V/5-first-turn.png)
 
 - __Launching a missile__
 
@@ -71,8 +69,8 @@ In this section, I am going to discribe step by step how the game works, and wha
   - The computer then takes their turn.
   - This continues until either player has lost all their ships, in which case the other player wins.
 
-![Missile Fired.](https://ibb.co/xMhxQgR)
-![Game Won.](https://ibb.co/zVgVVpF)
+![Missile Fired.](https://i.ibb.co/Wcnm1zY/6-fire-missile.png)
+![Game Won.](https://i.ibb.co/PGyGGKM/6-game-won.png)
 
 ### Features Left to Implement
 
