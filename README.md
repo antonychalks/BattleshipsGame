@@ -82,7 +82,9 @@ In the future I would like to implement the following features:
 ## Testing 
 
 To test this programme I used different methods:
-    ### Manual testing
+
+### Manual testing
+
     - I first tested the 'testing mode' worked, by applying it and ensuring I could type values not normally allowed as I worked through the programme, without throwing any errors.
     - After this I played the game as normal, firstly I tried to create a game board that was too large and too small to be allowed through the validator. I also input letters and symbols to ensure the validators would catch that the value was not an integer.
     - I then asked for 0 ships, which wasn't allowed, before asking for too many and then for more than 75% of the area to ensure the programme raised a warning.
@@ -91,7 +93,8 @@ To test this programme I used different methods:
 
     Throughout the whole process I wanted to ensure the user was allowed to re-enter their choice, meaning the user didn't have to run the entire programme again.
 
-    ### Peer testing
+### Peer testing
+
     - I then sent the deployed programme to some friends and and family to try, as they might make mistakes I hadn't thought of. It was also possible that my instructions weren't clear enough, so I wanted to make sure they could play the game without my help.
     - This helped as a few bugs were found which I have noted in bug.txt
 
@@ -102,7 +105,7 @@ To test this programme I used different methods:
 
 ### Unfixed Bugs
 
-All bugs that I found were noted into [bugs.txt](bugs.txt) as I went, along with the cause and solution I found worked.
+All bugs that I found were noted into [bugs.txt](bugs.txt) as I went, along with the cause and solution I found worked. I do not believe there are any unfixed bugs.
 
 ## Deployment
 
